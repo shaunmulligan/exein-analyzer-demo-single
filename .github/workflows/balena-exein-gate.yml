@@ -1,0 +1,26 @@
+name: Exein gate
+
+on:
+  schedule:
+    # Off the round minutes: GitHub delays or drops scheduled runs at the top of the hour.
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+    inputs:
+      enforce:
+        description: Keep failing drafts unfinalized (clear to finalize them as override)
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    uses: shaunmulligan/balena-exein/.github/workflows/gate.yml@main
+    with:
+      fleets: |
+        FLEET_SLUG
+      enforce: ${{ github.event_name != 'workflow_dispatch' || inputs.enforce }}
+    secrets:
+      balena-token: ${{ secrets.BALENA_TOKEN }}
+      analyzer-api-key: ${{ secrets.ANALYZER_API_KEY }}

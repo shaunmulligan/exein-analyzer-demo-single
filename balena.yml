@@ -1,0 +1,8 @@
+name: exein-analyzer-demo-single
+type: sw.application
+version: 0.1.0
+description: Single-container balena app on a Raspberry Pi 3, gated by Exein Analyzer CVE scans.
+data:
+  defaultDeviceType: raspberrypi3
+  supportedDeviceTypes:
+    - raspberrypi3

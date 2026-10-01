@@ -1,0 +1,19 @@
+name: Build, scan, deploy draft
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    uses: shaunmulligan/balena-exein/.github/workflows/build-scan-draft.yml@main
+    with:
+      fleets: |
+        FLEET_SLUG
+    secrets:
+      balena-token: ${{ secrets.BALENA_TOKEN }}
+      analyzer-api-key: ${{ secrets.ANALYZER_API_KEY }}
